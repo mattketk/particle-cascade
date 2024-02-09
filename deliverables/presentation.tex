@@ -1,0 +1,115 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{bibentry}
+\usepackage{hyperref}
+\usepackage{listings}
+\hypersetup{
+    colorlinks=false,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan
+    }
+
+\usepackage[absolute,overlay]{textpos}
+ \setlength{\TPHorizModule}{\textwidth}
+ \setlength{\TPVertModule}{\textwidth}
+
+\usepackage{esint}
+\usepackage{changepage}
+
+\usetheme{Berlin}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\bibliographystyle{abbrv}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+      \usebeamerfont{title}\color{white}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+%gets rid of bottom navigation bars
+\setbeamertemplate{footline}[frame number]{}
+
+%gets rid of bottom navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+%gets rid of footer
+%will override 'frame number' instruction above
+%comment out to revert to previous/default definitions
+\setbeamertemplate{footline}{}
+
+\setbeamertemplate{headline}{}
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+\setbeamercolor{footline}{fg=black}
+
+\title{Simulating Electron Cascades with Monte Carlo Methods}
+\author{Matt Ketkaroonkul}
+        \date{March 7, 2024}
+        % \nobibliography*
+\begin{document}
+\maketitle
+\begin{frame}
+\frametitle{Overview}
+\begin{itemize}
+    \item Introduction, Motivation
+    \item Trixi.jl Computational Methods
+    \item Demos, Preliminary Results
+    \item Analytical Approaches
+    \item Further Work
+\end{itemize} 
+\end{frame}
+
+\section{Introduction}
+\begin{frame}
+\frametitle{Implementing an Exponential Distribution}
+\begin{itemize}
+    \item We can sample an exponential distribution from a uniform distribution using {\bf Inverse Transform Sampling},
+        \begin{equation}
+            x = F^{-1} (y) 
+        \end{equation}
+    \item where \( F(x)=\lambda e^{-\lambda x} \) and \( y \) is the uniform distribution random variable
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Implementing an Exponential Distribution}
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+
+# sample 1000 points from a uniform distribution
+uni_sample = np.random.rand(1000)
+transform = lambda u, A: -np.log(u)/A
+
+plt.hist(transform_u(sampled, 1), density=True)
+plt.plot(x, np.exp(-x))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Implementing an Exponential Distribution}
+    \begin{figure}
+        \begin{center}
+            \includegraphics[width=0.7\textwidth]{figures/exp_dist.pdf}
+        \end{center}
+        \caption{Exponential distribution histogram and PDF with \( \lambda = 1 \).}\label{fig:exp-dist}
+    \end{figure}
+\end{frame}
+
+
+\end{document}
