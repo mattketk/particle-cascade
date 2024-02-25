@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bohm and Zech(2017)]{bohm}
+G.~Bohm and G.~Zech.
+\newblock \emph{{I}ntroduction to {S}tatistics and {D}ata {A}nalysis for
+  {P}hysicists; 3rd revised}.
+\newblock Verlag Deutsches Elektronen-Synchrotron, Hamburg, 2017.
+\newblock ISBN 978-3-945931-13-4.
+\newblock \doi{10.3204/PUBDB-2017-08987}.
+\newblock URL \url{https://bib-pubdb1.desy.de/record/389738}.
+
+\end{thebibliography}

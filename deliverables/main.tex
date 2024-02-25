@@ -1,0 +1,143 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage[margin=1.0in]{geometry}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage[square,numbers]{natbib}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\newcommand{\radlen}{\gram\per\cm^2}
+
+\title{\vspace{-3em}{\bf Studying High-Energy Particle Cascades with One-Dimensional Monte-Carlo Simulations}}
+\author{Matt Ketkaroonkul}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    Write the abstract last.
+    
+\end{abstract}
+
+\section{Introduction} % (fold)
+\label{sec:Introduction}
+Particle cascades are a topic of great interest in high energy physics. They occur as cosmic rays, collider interactions, and more.
+
+% section Introduction (end)
+\section{Implementation} % (fold)
+\label{sec:Implementation}
+\subsection{Exponential Distribution} % (fold)
+\label{sub:Exponential Distribution}
+An exponential distribution has the probability distribution function of
+\begin{equation}
+    P(x|X_{0}) = \frac{1}{X_{0}} \exp \left( -\frac{x}{X_{0}} \right) 
+\end{equation}
+
+where \( X_{0} \) is a scale factor. In code, we will assume that we only have access to a random variable \( x \) sampled from a uniform distribution. We can sample an exponential distribution from a uniform distribution using \textit{Inverse Transform Sampling}, where
+\begin{equation}
+    x = F^{-1} (y) .
+\end{equation}
+\( F(x)= e^{-x / X_{0}} / X_{0} \) and \( y \) is the uniform distribution random variable \cite{bohm}. Of course, this principle applies for when \( x, y \) share a one-to-one mapping. We can then plot a histogram depicting this transformed distribution with the code in Section \ref{sub:Exponential Distribution Code},
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{figures/exp_dist.pdf}
+    \end{center}
+    \caption{Exponential distribution histogram and PDF with \( X_{0} = 1 \).}\label{fig:exp-dist}
+\end{figure}
+
+% subsection Exponential Distribution (end)
+\subsection{} % (fold)
+\label{sub:}
+
+% subsection  (end)
+
+% section Implementation (end)
+\section{Results} % (fold)
+\label{sec:Results}
+
+\iffalse
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/charged_depth_hist.pdf}
+    \end{center}
+    \caption{Histogram of charged particle radiation lengths}\label{fig:hist}
+\end{figure}
+\fi
+
+This analysis looks at results from 100 trials. In Figure (\ref{fig:results}), histogram counts were averaged over 100 runs. Curve-fitting was applied to the histogram bin counts, assuming each bin count had radiation length depths (in \unit{\radlen}) corresponding to the center of each bin. The curve used to fit the histogram counts had the functional form
+\begin{equation}
+    N(x) = A x^b \exp \left(-\frac{x}{c}\right)
+\end{equation}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/charged_depth_results.pdf}
+    \end{center}
+    \caption{Histogram of charged particle radiation lengths with Poisson errors and a fit curve. Poisson errors were scaled down for visibility.}\label{fig:results}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/fit_parameter_convergence.pdf}
+    \end{center}
+    \caption{Curve-fitting parameters plotted over varying number of bins}\label{fig:convergence}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/shower_area_vs_energy.pdf}
+    \end{center}
+    \caption{Shower curve area relation with initial photon energy \( E_\gamma \).}\label{fig:shower-area}
+\end{figure}
+
+The energy of the initial photon is estimated by the following relation
+\begin{equation}
+    E_\gamma \propto \sum_{i} N(x_i) \Delta x_i
+\end{equation}
+Figure (\ref{fig:shower-area}) supports the idea that shower curve area can reliably estimate the initial energy of the high-energy photon \( E_\gamma \).
+% section Results (end)
+\section{Conclusions} % (fold)
+\label{sec:Conclusions}
+
+% section Conclusions (end) 
+\section{Appendix} % (fold)
+\label{sec:Appendix}
+
+\newpage
+\subsection{Exponential Distribution Code} % (fold)
+\label{sub:Exponential Distribution Code}
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# sample 1000 points from a uniform distribution
+uni_sample = np.random.rand(1000)
+transform = lambda u, a: -np.log(u)/a
+
+plt.hist(transform_u(sampled, 1), density=true)
+plt.plot(x, np.exp(-x))
+\end{verbatim}
+
+% subsection Exponential Distribution Code (end)
+\subsection{Monte-Carlo Code} % (fold)
+\label{sub:Monte-Carlo Code}
+
+% subsection Monte-Carlo Code (end)
+\bibliographystyle{abbrvnat}
+\bibliography{citations}
+% section Appendix (end)
+\end{document}
