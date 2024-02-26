@@ -36,6 +36,12 @@
 \label{sec:Introduction}
 Particle cascades are a topic of great interest in high energy physics. They occur as cosmic rays, collider interactions, and more.
 
+This project will model a one-dimensional particle cascade of a \SI{1.0}{\giga\eV} photon as it interacts with a mass of lead (Pb). As the photon travels through the lead mass, the photon will undergo pair production, where the photon becomes a positron-electron pair. Each particle having half of the precursor photon's total energy. The charged particles are able to interact with the lead atoms themselves, undergoing ionization losses and bremsstrahlung (braking radiation.)
+
+To describe particle cascades within matter, it is useful to define a quantity called radiation length, which has units equivalent to mass density multiplied by distance. In this paper, we will use the units \unit{\radlen}. Radiation length describes the mean length a high-energy particle travels before it loses energy by a factor of \( 1 / e \) for a given material that makes up a uniform medium. Thus, the density is the density of the medium.
+
+Ionization losses scale linearly with radiation length of a given charged particle. On average, we will assume that a charged particle will lose \SI{2.0}{\mega\eV\per\radlen} of lead traveled through. Bremsstrahlung occurs for charged particles above a critical value of energy of \( E_c = \SI{6.9}{\mega\eV}\). A charged particle with an energy above \( E_c \) will lose 
+
 % section Introduction (end)
 \section{Implementation} % (fold)
 \label{sec:Implementation}
@@ -46,7 +52,7 @@ An exponential distribution has the probability distribution function of
     P(x|X_{0}) = \frac{1}{X_{0}} \exp \left( -\frac{x}{X_{0}} \right) 
 \end{equation}
 
-where \( X_{0} \) is a scale factor. In code, we will assume that we only have access to a random variable \( x \) sampled from a uniform distribution. We can sample an exponential distribution from a uniform distribution using \textit{Inverse Transform Sampling}, where
+where \( X_{0} \) is a scale factor, i.e. the radiation length of lead. In code, we will assume that we only have access to a random variable \( x \) sampled from a uniform distribution. We can sample an exponential distribution from a uniform distribution using \textit{Inverse Transform Sampling}, where
 \begin{equation}
     x = F^{-1} (y) .
 \end{equation}
